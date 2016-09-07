@@ -9,8 +9,15 @@ import '../css/styles.scss';
 const DefaultTheme = {
   reactDates: {
     color: {
-      border: '#dbdbdb',
+      white: '#fff',
+      border_input: '#dbdbdb',
+      caption: '#3c3f40',
+      border_day: '#e4e7e7',
+      border_day_hovered: '#d4d9d9',
+      background_day_active: '#f2f2f2',
+      text_day: '#565a5c',
     },
+
   },
 };
 
