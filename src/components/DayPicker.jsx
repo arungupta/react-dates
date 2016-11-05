@@ -55,7 +55,7 @@ const defaultProps = {
   orientation: HORIZONTAL_ORIENTATION,
   withPortal: false,
   hidden: false,
-  initialVisibleMonth: () => moment(),
+  initialVisibleMonth: () => moment().locale('en'),
   onDayClick() {},
   onDayMouseDown() {},
   onDayMouseUp() {},
@@ -78,7 +78,7 @@ export default class DayPicker extends React.Component {
 
     this.hasSetInitialVisibleMonth = !props.hidden;
     this.state = {
-      currentMonth: props.hidden ? moment() : props.initialVisibleMonth(),
+      currentMonth: props.initialVisibleMonth(),
       monthTransition: null,
       translationValue: 0,
       start: "",
@@ -135,6 +135,10 @@ export default class DayPicker extends React.Component {
       this.hasSetInitialVisibleMonth = true;
       this.setState({
         currentMonth: nextProps.initialVisibleMonth(),
+        translationValue: this.getTranslationValue(),
+      }, () => {
+        this.updateStateAfterMonthTransition();
+        this.adjustDayPickerHeight();
       });
     }
 
@@ -261,6 +265,10 @@ export default class DayPicker extends React.Component {
     });
   }
 
+  getTranslationValue() {
+    return this.isVertical() ? this.getMonthHeightByIndex(1) : this.dayPickerWidth;
+  }
+
   handlePrevMonthClick(e) {
     if (e) e.preventDefault();
 
@@ -268,15 +276,16 @@ export default class DayPicker extends React.Component {
       this.props.onPrevMonthClick(e);
     }
 
-    const translationValue =
-      this.isVertical() ? this.getMonthHeightByIndex(0) : this.dayPickerWidth;
-
     // The first CalendarMonth is always positioned absolute at top: 0 or left: 0
     // so we need to transform it to the appropriate location before the animation.
     // This behavior is because we would otherwise need a double-render in order to
     // adjust the container position once we had the height the first calendar
     // (ie first draw all the calendar, then in a second render, use the first calendar's
     // height to position the container). Variable calendar heights, amirite? <3 Maja
+
+    const translationValue =
+          this.isVertical() ? this.getMonthHeightByIndex(0) : this.dayPickerWidth;
+
     this.translateFirstDayPickerForAnimation(translationValue);
 
     this.setState({
@@ -287,16 +296,16 @@ export default class DayPicker extends React.Component {
 
   handleNextMonthClick(e) {
     if (e) e.preventDefault();
+
     if (this.props.onNextMonthClick) {
       this.props.onNextMonthClick(e);
     }
 
-    const translationValue =
-      this.isVertical() ? -this.getMonthHeightByIndex(1) : -this.dayPickerWidth;
+    var translationValue = this.isVertical() ? -this.getMonthHeightByIndex(1) : -this.dayPickerWidth;
 
     this.setState({
       monthTransition: NEXT_TRANSITION,
-      translationValue,
+      translationValue
     });
   }
 

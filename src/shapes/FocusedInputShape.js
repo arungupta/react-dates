@@ -5,4 +5,4 @@ import {
   END_DATE,
 } from '../../constants';
 
-export default PropTypes.oneOf([START_DATE, END_DATE]);
+export default PropTypes.oneOf([START_DATE, END_DATE, '', null]);

@@ -53,6 +53,7 @@ const defaultProps = {
   withFullScreenPortal: false,
 
   onDatesChange() {},
+  onDateRangeClickEnd() {},
   onFocusChange() {},
   onPrevMonthClick() {},
   onNextMonthClick() {},
@@ -120,7 +121,7 @@ export default class DateRangePicker extends React.Component {
         this.props.onFocusChange(START_DATE);
       } else if (isInclusivelyAfterDay(day, firstAllowedEndDate)) {
         endDate = day;
-        this.props.onFocusChange(null);
+        this.props.onFocusChange(START_DATE);
       } else {
         startDate = day;
         endDate = null;
@@ -133,6 +134,11 @@ export default class DateRangePicker extends React.Component {
     if (startDate) {
       startDate = startDate.startOf("day")
     }
+
+    if (focusedInput === END_DATE && startDate && endDate) {
+      this.props.onDateRangeClickEnd();
+    }
+
     this.props.onDatesChange({ startDate, endDate });
   }
 

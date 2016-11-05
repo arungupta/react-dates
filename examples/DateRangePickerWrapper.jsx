@@ -6,7 +6,7 @@ class DateRangePickerWrapper extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      focusedInput: "startDate",
+      focusedInput: "",
       startDate: null,
       endDate: null,
       visible: true,
@@ -36,8 +36,13 @@ class DateRangePickerWrapper extends React.Component {
     const {startDate, endDate} = this.state
   }
 
+  componentDidMount() {
+    setTimeout(() =>  this.setState({initM: moment().add(1, "month").subtract(4, "years"), focusedInput: "startDate"}), 300);
+  }
+
   render() {
     const { focusedInput, startDate, endDate, visible, error } = this.state;
+    const initM = () => this.state.initM ? this.state.initM : moment()
     return (
       <div>
         <DateRangePicker
@@ -50,9 +55,10 @@ class DateRangePickerWrapper extends React.Component {
           focusedInput={focusedInput}
           startDate={startDate}
           endDate={endDate}
-
+          initialVisibleMonth={initM}
           startDatePlaceholder={moment().startOf("day").format("MM/DD/YYYY HH:mm:ss")}
           endDatePlaceholder={moment("235959", "hmmss").format("MM/DD/YYYY HH:mm:ss")}
+          onDateRangeClickEnd={(d) => console.log(d)}
         />
       </div>
     );
