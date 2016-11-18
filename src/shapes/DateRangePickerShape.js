@@ -31,6 +31,7 @@ export default {
 
   initialVisibleMonth: PropTypes.func,
   onDatesChange: PropTypes.func,
+  onDateRangeClickEnd: PropTypes.func,
   onFocusChange: PropTypes.func,
   onPrevMonthClick: PropTypes.func,
   onNextMonthClick: PropTypes.func,
