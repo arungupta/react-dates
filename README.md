@@ -1,5 +1,9 @@
 # react-dates <sup>[![Version Badge][npm-version-svg]][package-url]</sup>
 
+NOTE: MapD forked this to enact style and feature changes; see gif below.
+
+![react-dates](https://cloud.githubusercontent.com/assets/2483420/25767057/448bdf3a-31ab-11e7-9caf-dbd2ceeccd67.gif)
+
 [![Build Status][travis-svg]][travis-url]
 [![dependency status][deps-svg]][deps-url]
 [![dev dependency status][dev-deps-svg]][dev-deps-url]
@@ -9,8 +13,6 @@
 [![npm badge][npm-badge-png]][package-url]
 
 > An accessible, easily internationalizable, mobile-friendly datepicker library for the web.
-
-![react-dates in action](https://raw.githubusercontent.com/airbnb/react-dates/master/react-dates-demo.gif)
 
 ## Live Playground
 
